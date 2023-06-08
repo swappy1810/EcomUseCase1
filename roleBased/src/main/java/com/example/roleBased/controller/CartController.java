@@ -1,31 +1,25 @@
 package com.example.roleBased.controller;
 
-import com.example.roleBased.entity.Cart;
+import com.example.roleBased.entity.CartDetails;
 import com.example.roleBased.serviceImpl.CartServiceImpl;
-import com.example.roleBased.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("carts")
 public class CartController {
 
     @Autowired
-    private CartServiceImpl cartService;
+    private CartServiceImpl cartservice;
 
-    @Autowired
-    private UserServiceImpl userService;
 
-    //get added cart item
-//    @PostMapping("/addtocart/{productId}")
-//    public String addToCart(@PathVariable(name = "productId") Integer productId){
-//        return cartService.addToCart(productId);
-//    }
-//
-//    @GetMapping("/getCartDetails")
-//    public List<Cart> getDetails(){
-//        return cartService.getCartDetails();
-//    }
+    @PreAuthorize("hasRole('User')")
+    @GetMapping({"/addToCart/{productId}"})
+    public CartDetails addToCart(@PathVariable(name = "productId") Integer productId)
+    {
+        return cartservice.addToCart(productId);
+    }
+
 }

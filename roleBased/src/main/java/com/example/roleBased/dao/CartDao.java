@@ -1,15 +1,10 @@
 package com.example.roleBased.dao;
 
-import com.example.roleBased.entity.Cart;
-import com.example.roleBased.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.roleBased.entity.CartDetails;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface CartDao extends JpaRepository<Cart,Integer> {
-
-     List<Cart> findByUser(User user);
+public interface CartDao extends CrudRepository<CartDetails,Integer> {
 
 }
